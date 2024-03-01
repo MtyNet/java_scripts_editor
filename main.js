@@ -5,8 +5,8 @@ var exe_i = 0;
 var select_row = null; // _selected
 var tEditor = {}
 var FNM = null;
-function select(ob){
-    if(select_row){
+function select(ob) {
+    if (select_row) {
         select_row.classList.toggle("_selected");
         // select_row.className = select_row.className.replace(" _selected", "");
     }
@@ -15,16 +15,14 @@ function select(ob){
     select_row = ob
     return
 }
-function focus_(ob)
-{
+function focus_(ob) {
     let ar = ob.id.split("_")
     let div = document.getElementById(`RowDiv_${ar[1]}`)
     return select(div)
 }
-function add_js()
-{
+function add_js() {
     ++index
-    let h =`
+    let h = `
     <div class="_cell code_cell rendered _jsRow" tabindex="2" id="RowDiv_${index}" onclick="select(this)" type="js">
         <div class="_input">
             <div class="prompt_container">
@@ -49,20 +47,19 @@ function add_js()
     notebook.insertAdjacentHTML("beforeend", h);
 
     let editor = document.getElementById(`CodeInput_${index}`);
-            editor = ace.edit(editor);
-            editor.setTheme("ace/theme/twilight");
-            editor.session.setMode('ace/mode/javascript');
-            editor.setOptions({ maxLines: 1000});
-            editor.setOptions ({ enableBasicAutocompletion: true ,enableSnippets: true,enableLiveAutocompletion:true});
+    editor = ace.edit(editor);
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode('ace/mode/javascript');
+    editor.setOptions({ maxLines: 1000 });
+    editor.setOptions({ enableBasicAutocompletion: true, enableSnippets: true, enableLiveAutocompletion: true });
     tEditor[`e_${index}`] = editor;
     addAutoCompilit(editor);
     return index;
-    
-    }
-function add_html()
-{
+
+}
+function add_html() {
     ++index
-    let h =`
+    let h = `
     <div class="_cell code_cell rendered _htnRow " tabindex="2" id="RowDiv_${index}" onclick="select(this)" type="html">
         <div class="_input">
             <div class="prompt_container">
@@ -87,18 +84,17 @@ function add_html()
     notebook.insertAdjacentHTML("beforeend", h);
 
     let editor = document.getElementById(`CodeInput_${index}`);
-            editor = ace.edit(editor);
-            editor.setTheme("ace/theme/twilight");
-            editor.session.setMode('ace/mode/html');
-            editor.setOptions({ maxLines: 1000});
-            editor.setOptions ({ enableBasicAutocompletion: true ,enableSnippets: true,enableLiveAutocompletion:true});
+    editor = ace.edit(editor);
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode('ace/mode/html');
+    editor.setOptions({ maxLines: 1000 });
+    editor.setOptions({ enableBasicAutocompletion: true, enableSnippets: true, enableLiveAutocompletion: true });
     tEditor[`e_${index}`] = editor;
     return index;
 }
-function add_css()
-{
+function add_css() {
     ++index
-    let h =`
+    let h = `
     <div class="_cell code_cell rendered _cssRow " tabindex="2" id="RowDiv_${index}" onclick="select(this)" type="css">
         <div class="_input">
             <div class="prompt_container">
@@ -123,80 +119,78 @@ function add_css()
     notebook.insertAdjacentHTML("beforeend", h);
 
     let editor = document.getElementById(`CodeInput_${index}`);
-            editor = ace.edit(editor);
-            editor.setTheme("ace/theme/twilight");
-            editor.session.setMode('ace/mode/css');
-            editor.setOptions({ maxLines: 1000});
-            editor.setOptions ({ enableBasicAutocompletion: true ,enableSnippets: true,enableLiveAutocompletion:true});
+    editor = ace.edit(editor);
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode('ace/mode/css');
+    editor.setOptions({ maxLines: 1000 });
+    editor.setOptions({ enableBasicAutocompletion: true, enableSnippets: true, enableLiveAutocompletion: true });
     tEditor[`e_${index}`] = editor;
     // editor.on ("change", atuoRunCss); // test
     return index;
 }
-const GetId = (id=null ,username=null) =>{
-    let row = select_row; 
+const GetId = (id = null, username = null) => {
+    let row = select_row;
     let i
-    if (row != null){
+    if (row != null) {
         i = row.id.split("_")[1];
     }
-    if (id != null){
+    if (id != null) {
         i = id
         row = document.getElementById(`RowDiv_${i}`);
     }
-    if (username != null){
+    if (username != null) {
         i = username.split("_")[1];
         row = document.getElementById(`RowDiv_${i}`);
     }
     return {
         id: i,
-        row : row,
+        row: row,
         e: tEditor[`e_${i}`],
-        script:`script_${i}`,
-        style:`style_${i}`,
-        RowDiv:`RowDiv_${i}`,
-        CodeInput:`CodeInput_${i}`,
-        InputNum:`InputNum_${i}`,
-        OutNum:`OutNum_${i}`,
-        OutPrint:`OutPrint_${i}`,
+        script: `script_${i}`,
+        style: `style_${i}`,
+        RowDiv: `RowDiv_${i}`,
+        CodeInput: `CodeInput_${i}`,
+        InputNum: `InputNum_${i}`,
+        OutNum: `OutNum_${i}`,
+        OutPrint: `OutPrint_${i}`,
     }
 }
-function jsRun()
-{
+function jsRun() {
     let i = GetId();
     delOutPut(i);
-    if(i.e.getValue().trim() == ""){return};
+    if (i.e.getValue().trim() == "") { return };
     ++exe_i
     let inm = document.getElementById(i.InputNum)
-    inm.innerHTML =`JS [ ${exe_i} ]:`
+    inm.innerHTML = `JS [ ${exe_i} ]:`
     var sc = document.getElementById(i.script);
-    if (i.row.children.length > 1){i.row.removeChild(i.row.children[1])}
+    if (i.row.children.length > 1) { i.row.removeChild(i.row.children[1]) }
     try {
-        if (sc){
+        if (sc) {
             document.head.removeChild(sc)
         }
         sc = document.createElement("script")
         sc.id = i.script
-        sc.text +="try{" 
+        sc.text += "try{"
         sc.text += i.e.getValue();
         sc.text += "\n\
                 }catch (err) {print(err.message)}"
         document.head.appendChild(sc)
         //eval(code);
         // $.globalEval(code) //very god
-      } catch (err) {
+    } catch (err) {
         print(err.message);
-      } finally {
+    } finally {
         return;
-      }
+    }
 }
 // var htmlQut = {};
-function htmlRun(ob)
-{
+function htmlRun(ob) {
     let i = GetId()
-    if(i.e.getValue().trim() == ""){return delOutPut(i)};
+    if (i.e.getValue().trim() == "") { return delOutPut(i) };
     var div = document.getElementById(i.RowDiv)
     let inm = document.getElementById(i.InputNum)
-    inm.innerHTML =`HTML [ ${i.id} ]:`
-    if(div.children.length >1){
+    inm.innerHTML = `HTML [ ${i.id} ]:`
+    if (div.children.length > 1) {
         let out = document.getElementById(i.OutPrint);
         let onm = document.getElementById(i.OutNum);
         onm.innerHTML = `HTML [ ${i.id} ]:`;
@@ -220,88 +214,79 @@ function htmlRun(ob)
                 <div class="_qHtml SCR-DIV" id="${i.OutPrint}" ondblclick="htmlFullViwe(event)">${i.e.getValue()}</div>
             </div>
         </div>`
-        div.insertAdjacentHTML("beforeend", h);
-        return;
-        
+    div.insertAdjacentHTML("beforeend", h);
+    return;
+
 }
-function cssRun(ob)
-{
+function cssRun(ob) {
     var i = GetId()
-    if(i.e.getValue().trim() == ""){return};
+    if (i.e.getValue().trim() == "") { return };
     let inm = document.getElementById(i.InputNum)
-    inm.innerHTML =`CSS [ ${i.id} ]:`
+    inm.innerHTML = `CSS [ ${i.id} ]:`
     var sc = document.getElementById(i.style);
-    if (sc){
+    if (sc) {
         // document.head.removeChild(sc)
         sc.innerText = i.e.getValue();
         return;
     }
-    else
-    {
+    else {
         sc = document.createElement("style");
         sc.id = i.style
         sc.innerText = i.e.getValue();
         document.head.appendChild(sc);
-        i.e.on ("change", atuoRunCss);
+        i.e.on("change", atuoRunCss);
         return;
     }
-    
+
 }
-function atuoRunCss()
-{
+function atuoRunCss() {
     let i = GetId();
     document.getElementById(i.style).innerText = i.e.getValue();
     return;
 }
-function delOutPut(i)
-{
+function delOutPut(i) {
     let o = i.row.querySelector("._output");
-    if (o){i.row.removeChild(o)};
+    if (o) { i.row.removeChild(o) };
     return;
 }
-function checkShiftEnter(e) 
-{
-    if (select_row == null){return}
+function checkShiftEnter(e) {
+    if (select_row == null) { return }
     if (e.keyCode == 13 && e.shiftKey) { // شناسایی دکمه shift+enter
         let value = select_row.getAttribute("type");
         let i = GetId();
         let ob = document.getElementById(i.CodeInput);
         ob.getElementsByTagName("textarea")[0].blur();
-        
-    
-        if(value == "js"){jsRun(ob)};
-        if (value == "html"){htmlRun(ob)};
-        if (value == "css"){cssRun(ob)};
-        if (select_row.nextElementSibling)
-        {
+
+
+        if (value == "js") { jsRun(ob) };
+        if (value == "html") { htmlRun(ob) };
+        if (value == "css") { cssRun(ob) };
+        if (select_row.nextElementSibling) {
             select_row.classList.toggle("_selected");
             select_row = select_row.nextElementSibling;
             select_row.classList.toggle("_selected");
         }
-        else
-        {
+        else {
             let t = i.row.getAttribute("type");
-            if (t == "js"){add_js();}
-            if (t == "html"){add_html();}
-            if (t == "css"){add_css();}
+            if (t == "js") { add_js(); }
+            if (t == "html") { add_html(); }
+            if (t == "css") { add_css(); }
             select_row.classList.toggle("_selected");
             select_row = select_row.nextElementSibling;
             select_row.classList.toggle("_selected");
         }
     }
-    return ;
+    return;
 }
-function buttonRun() 
-{
+function buttonRun() {
     let i = GetId()
     let value = i.row.getAttribute("type");
     let ob = document.getElementById(i.CodeInput)
-    if(value == "js"){return jsRun(ob)};
-    if (value == "html"){return htmlRun(ob)};
-    if (value == "css"){return cssRun(ob)};
+    if (value == "js") { return jsRun(ob) };
+    if (value == "html") { return htmlRun(ob) };
+    if (value == "css") { return cssRun(ob) };
 }
-function delet_row()
-{
+function delet_row() {
     let i = GetId()
     let parent = document.getElementById("_NTB-CTNR");
     parent.removeChild(i.row);
@@ -309,20 +294,18 @@ function delet_row()
     delete tEditor[`e_${i.id}`]
     return
 }
-function dir(toCheck) 
-{
+function dir(toCheck) {
     const props = [];
     let obj = toCheck;
     do {
-      props.push (...Object.getOwnPropertyNames (obj));
-    } while (obj = Object.getPrototypeOf (obj));
-    return props.sort ().filter ( (e, i, arr) => { if (e!=arr [i+1] && typeof toCheck [e] == 'function') return true; });
+        props.push(...Object.getOwnPropertyNames(obj));
+    } while (obj = Object.getPrototypeOf(obj));
+    return props.sort().filter((e, i, arr) => { if (e != arr[i + 1] && typeof toCheck[e] == 'function') return true; });
 }
-function print(val)
-{
+function print(val) {
     let i = GetId();
     var out = document.getElementById(i.OutPrint);
-    if (!out){
+    if (!out) {
         let h = `<div class="_output _marginTop">
             <div class="prompt_container">
                 <div class="_prompt _out_prompt_overlay" title="click to expand output; double click to hide output"  ondblclick="outLarge()">
@@ -342,80 +325,75 @@ function print(val)
         </div>`
         i.row.insertAdjacentHTML("beforeend", h);
         out = document.getElementById(i.OutPrint);
-        }
-        var color_
-        if (out.children.length % 2 == 0){color_="#362651"}else{color_="#263e51"};
-        out.insertAdjacentHTML("beforeend", `<div class="_rPansser" style="background-color: ${color_};">${val}</div>`);
-    return;
-        
-}
-function revers_row()
-{
-    if(select_row != null){
-    select_row.insertBefore( select_row.children[1],select_row.children[0]);
-    return;
     }
-    
-}
-function importSrc(src){alert($.getScript(src))}
+    var color_
+    if (out.children.length % 2 == 0) { color_ = "#362651" } else { color_ = "#263e51" };
+    out.insertAdjacentHTML("beforeend", `<div class="_rPansser" style="background-color: ${color_};">${val}</div>`);
+    return;
 
-function moveRow(mod)
-{
+}
+function revers_row() {
+    if (select_row != null) {
+        select_row.insertBefore(select_row.children[1], select_row.children[0]);
+        return;
+    }
+
+}
+function importSrc(src) { alert($.getScript(src)) }
+
+function moveRow(mod) {
     var obj1 = select_row;
     var parent = select_row.parentElement;
-    
-    if (mod == "down"){
+
+    if (mod == "down") {
         var next = obj1.nextElementSibling;
         if (next) {
-            parent.insertBefore( next,obj1);
-          } else {
+            parent.insertBefore(next, obj1);
+        } else {
             add_js()
             moveRow(mod)
-          }
-    }else{
+        }
+    } else {
         var back = obj1.previousElementSibling;
         if (back) {
-            parent.insertBefore( obj1,back);
-          } else {
+            parent.insertBefore(obj1, back);
+        } else {
             let back = document.getElementById(`RowDiv_${add_js()}`);
-            parent.insertBefore( back,obj1);
-            parent.insertBefore( obj1,back);
-          }
+            parent.insertBefore(back, obj1);
+            parent.insertBefore(obj1, back);
+        }
     }
 }
-function cheangMode()
-{
+function cheangMode() {
     let i = GetId()
     let t = select_row.getAttribute("type");
-    if (t == "js"){
-        
+    if (t == "js") {
+
         select_row.className += " _htnRow";
-        select_row.setAttribute("type","html");
+        select_row.setAttribute("type", "html");
         i.e.getSession().setMode('ace/mode/html');
     }
-    if(t == "html"){
+    if (t == "html") {
         select_row.className = select_row.className.replace(" _htnRow", " ");
-        select_row.setAttribute("type","js");
+        select_row.setAttribute("type", "js");
         i.e.getSession().setMode('ace/mode/javascript');
-        
+
     }
     return;
 }
-function addRowSide(mod)
-{
-    if(select_row == null){return}
+function addRowSide(mod) {
+    if (select_row == null) { return }
     var parent = select_row.parentElement
     let nRow = document.getElementById(`RowDiv_${add_js()}`);
-    if (mod == "down"){
+    if (mod == "down") {
         var obj1 = select_row.nextElementSibling
-        parent.insertBefore(nRow,obj1);
-    }else{
+        parent.insertBefore(nRow, obj1);
+    } else {
         var obj1 = select_row
-        parent.insertBefore(nRow,obj1);
+        parent.insertBefore(nRow, obj1);
     }
 }
-function copyText()
-{
+function copyText() {
     let i = GetId()
     var p = document.getElementById(i.CodeInput).querySelector(".ace_content"); // گرفتن المان <p>
     var range = document.createRange(); // ساختن یک بازه
@@ -426,70 +404,60 @@ function copyText()
     document.execCommand('copy'); // کپی کردن محتوای انتخاب شده
     alert('متن کپی شد.'); // نمایش پیام تأیید
 }
-function outLarge()
-{
+function outLarge() {
     let i = GetId();
     let t = i.row.getAttribute("type");
-    if (t == "js")
-    {
+    if (t == "js") {
         let o = document.getElementById(i.OutPrint);
         o.classList.toggle("_outLarge");
         return;
     }
-    if (t == "html") 
-    {
+    if (t == "html") {
         htmlFullViwe();
         return;
     }
     return;
-    
+
 }
-function htmlFullViwe(e)
-{   
+function htmlFullViwe(e) {
     let i = GetId();
     _.htmlContiner.addNew(document.getElementById(i.OutPrint))
     return;
 }
-function htmlMin(t)
-{
-    let i = GetId(id=null ,username=t.parentNode.parentNode.parentNode.id);
+function htmlMin(t) {
+    let i = GetId(id = null, username = t.parentNode.parentNode.parentNode.id);
     let b = document.getElementById(i.OutPrint);
-    if (b.classList.length == 2){
+    if (b.classList.length == 2) {
         return;
     }
     let o = t.parentNode.nextElementSibling;
     o.classList.toggle("_htmlMin")
     return;
 }
-window.onbeforeunload = function() 
-{
+window.onbeforeunload = function () {
     return "آیا مطمئن هستید که می‌خواهید صفحه را رفرش کنید؟";
 }
 window.addEventListener("keydown", preventSave);
-function preventSave(e) 
-{
-    if (e.keyCode == 83 && e.ctrlKey){e.preventDefault();return _.save.saved()};
+function preventSave(e) {
+    if (e.keyCode == 83 && e.ctrlKey) { e.preventDefault(); return _.save.saved() };
     return;
 }
-function menuUpLoad()
-{
+function menuUpLoad() {
     let divC = document.querySelector('.input-backup');
     divC.classList.toggle("_AC")
-    divC.onclick = (event)=>{
-        if (event.target.className.startsWith("input-backup"))
-        {
+    divC.onclick = (event) => {
+        if (event.target.className.startsWith("input-backup")) {
             return divC.classList.toggle("_AC");
         }
     }
-    let input = document.getElementById('file-input'); 
-    let h = document.querySelector(".input-box h3"); 
-    input.onchange = function() { 
-        h.innerHTML = input.files[0].name; 
+    let input = document.getElementById('file-input');
+    let h = document.querySelector(".input-box h3");
+    input.onchange = function () {
+        h.innerHTML = input.files[0].name;
         FNM = input.files[0].name;
     };
 }
-function readJsonFile()
-{
+function readJsonFile() {
     // ایجاد یک شیء FileReader
     menuUpLoad();
     let check = document.querySelectorAll(".input-check input");
@@ -497,8 +465,7 @@ function readJsonFile()
     let file = ts.files[0];
     let reader = new FileReader();
     // if not marge sourc
-    if (!check[1].checked)
-    {
+    if (!check[1].checked) {
         document.getElementById("_NTB-CTNR").innerHTML = "";
         tEditor = {}
         index = 0;
@@ -510,63 +477,56 @@ function readJsonFile()
         cont.classList.remove("_htmlFullViweNotebook");
     }
     // تعریف یک رویداد بارگذاری برای زمانی که خواندن فایل به پایان برسد
-    reader.onload = function() {
+    reader.onload = function () {
         // دریافت محتوای فایل به صورت رشته
         let jsonString = reader.result;
-        
+
         // تبدیل رشته به شیء جاوا اسکریپت
         let data = JSON.parse(jsonString);
-        
-        for (let index = 0; index < data.length; index++) 
-        {
+
+        for (let index = 0; index < data.length; index++) {
             let d = data[index];
             let t = d.type;
             let i
-            if (t == "js")
-                {   
-                    // obj.hasOwnProperty("name")
-                    // (obj.country !== undefined)
-                    // if ("output" in d)
-                    i = GetId(id=add_js());
-                    i.e.setValue(d.input);
-                    select(i.row);
-                    i.e.clearSelection();
-                    if(check[0].checked){jsRun()}; // if check box run code
-                    continue;
-                }
-            if (t == "html")
-                {
-                    i = GetId(id=add_html());
-                    i.e.setValue(d.input);
-                    select(i.row);
-                    i.e.clearSelection();
-                    htmlRun();
-                    continue;
-                }
-            if (t == "css")
-                {
-                    i = GetId(id=add_css());
-                    i.e.setValue(d.input);
-                    // i.e.session.setValue(d.input);
-                    i.e.clearSelection();
-                    select(i.row);
-                    cssRun();
-                    continue;
-                }
+            if (t == "js") {
+                // obj.hasOwnProperty("name")
+                // (obj.country !== undefined)
+                // if ("output" in d)
+                i = GetId(id = add_js());
+                i.e.setValue(d.input);
+                select(i.row);
+                i.e.clearSelection();
+                if (check[0].checked) { jsRun() }; // if check box run code
+                continue;
+            }
+            if (t == "html") {
+                i = GetId(id = add_html());
+                i.e.setValue(d.input);
+                select(i.row);
+                i.e.clearSelection();
+                htmlRun();
+                continue;
+            }
+            if (t == "css") {
+                i = GetId(id = add_css());
+                i.e.setValue(d.input);
+                // i.e.session.setValue(d.input);
+                i.e.clearSelection();
+                select(i.row);
+                cssRun();
+                continue;
+            }
         }
     };
-    
+
     // خواندن فایل به صورت متن
-reader.readAsText(file);
+    reader.readAsText(file);
 }
-class _GET_BACKUP
-{
-    constructor()
-    {
+class _GET_BACKUP {
+    constructor() {
         this.box = document.querySelector("._BXS");
     }
-    creat()
-    {
+    creat() {
         this.box.classList.toggle("_AC");
         this.c = $.parseHTML(`
         <div class="_input-box">
@@ -584,17 +544,16 @@ class _GET_BACKUP
         </div>
         `)[1];
         this.box.appendChild(this.c)
-        let input = this.c.querySelector('#_file-input'); 
-        let h = this.c.querySelector("._input-box h3"); 
-        input.onchange = function() { 
-            h.innerHTML = input.files[0].name; 
+        let input = this.c.querySelector('#_file-input');
+        let h = this.c.querySelector("._input-box h3");
+        input.onchange = function () {
+            h.innerHTML = input.files[0].name;
         };
-        let b = this.c.querySelector("button"); 
-        b.onclick = ()=>(this.readJsonFile())
+        let b = this.c.querySelector("button");
+        b.onclick = () => (this.readJsonFile())
         return;
     }
-    readJsonFile()
-    {
+    readJsonFile() {
         let check = this.c.querySelectorAll("._input-check input");
         let ts = this.c.querySelector("#_file-input");
         let file = ts.files[0];
@@ -602,8 +561,7 @@ class _GET_BACKUP
         _.save.name = ts.files[0].name;
         let reader = new FileReader();
         // if not marge sourc
-        if (!check[1].checked)
-        {
+        if (!check[1].checked) {
             document.getElementById("_NTB-CTNR").innerHTML = "";
             tEditor = {}
             index = 0;
@@ -615,66 +573,59 @@ class _GET_BACKUP
             cont.classList.remove("_htmlFullViweNotebook");
         }
         // تعریف یک رویداد بارگذاری برای زمانی که خواندن فایل به پایان برسد
-        reader.onload = function() {
+        reader.onload = function () {
             // دریافت محتوای فایل به صورت رشته
             let jsonString = reader.result;
-            
+
             // تبدیل رشته به شیء جاوا اسکریپت
             let data = JSON.parse(jsonString);
-            
-            for (let index = 0; index < data.length; index++) 
-            {
+
+            for (let index = 0; index < data.length; index++) {
                 let d = data[index];
                 let t = d.type;
                 let i
-                if (t == "js")
-                    {   
-                        // obj.hasOwnProperty("name")
-                        // (obj.country !== undefined)
-                        // if ("output" in d)
-                        i = GetId(add_js());
-                        i.e.setValue(d.input);
-                        select(i.row);
-                        i.e.clearSelection();
-                        if(check[0].checked){jsRun()}; // if check box run code
-                        continue;
-                    }
-                if (t == "html")
-                    {
-                        i = GetId(add_html());
-                        i.e.setValue(d.input);
-                        select(i.row);
-                        i.e.clearSelection();
-                        htmlRun();
-                        continue;
-                    }
-                if (t == "css")
-                    {
-                        i = GetId(add_css());
-                        i.e.setValue(d.input);
-                        // i.e.session.setValue(d.input);
-                        i.e.clearSelection();
-                        select(i.row);
-                        cssRun();
-                        continue;
-                    }
+                if (t == "js") {
+                    // obj.hasOwnProperty("name")
+                    // (obj.country !== undefined)
+                    // if ("output" in d)
+                    i = GetId(add_js());
+                    i.e.setValue(d.input);
+                    select(i.row);
+                    i.e.clearSelection();
+                    if (check[0].checked) { jsRun() }; // if check box run code
+                    continue;
+                }
+                if (t == "html") {
+                    i = GetId(add_html());
+                    i.e.setValue(d.input);
+                    select(i.row);
+                    i.e.clearSelection();
+                    htmlRun();
+                    continue;
+                }
+                if (t == "css") {
+                    i = GetId(add_css());
+                    i.e.setValue(d.input);
+                    // i.e.session.setValue(d.input);
+                    i.e.clearSelection();
+                    select(i.row);
+                    cssRun();
+                    continue;
+                }
             }
         };
-        
+
         // خواندن فایل به صورت متن
-    reader.readAsText(file);
-    return
+        reader.readAsText(file);
+        return
     }
 }
-class _Save
-{
-    constructor()
-    {
+class _Save {
+    constructor() {
         this.name = "Element.json";
         this.box = document.querySelector("._BXS");
     }
-    creat()
-    {
+    creat() {
         this.box.classList.toggle("_AC");
         this.c = $.parseHTML(`
         <div class="_dl-continer">
@@ -684,145 +635,132 @@ class _Save
         </div>
         `)[1];//_S.editeFileName(this)
         this.box.appendChild(this.c)
-        this.c.querySelector("input").onchange = (event)=>{this.editeFileName(event)};
+        this.c.querySelector("input").onchange = (event) => { this.editeFileName(event) };
         return;
     }
-    saved() 
-    {
+    saved() {
         this.creat();
         let rows = document.getElementsByClassName("_cell")
         let data = []
-        for (let index = 0; index < rows.length; index++) 
-        {   
-             
+        for (let index = 0; index < rows.length; index++) {
+
             let t = rows[index].getAttribute("type");
-            let i = GetId(null ,rows[index].id);
-            if (t == "js")
-                {   
-                    data.push({type:"js" ,input:i.e.getValue()});
-                    continue;
-                }
-            if (t == "html")
-                {
-                    data.push({type:"html" ,input:i.e.getValue()});
-                    continue;
-                }
-            if (t == "css")
-                {
-                    data.push({type:"css" ,input:i.e.getValue()});
-                    continue;
-                }
+            let i = GetId(null, rows[index].id);
+            if (t == "js") {
+                data.push({ type: "js", input: i.e.getValue() });
+                continue;
+            }
+            if (t == "html") {
+                data.push({ type: "html", input: i.e.getValue() });
+                continue;
+            }
+            if (t == "css") {
+                data.push({ type: "css", input: i.e.getValue() });
+                continue;
+            }
         }
         this.createDownloadLink(data);
         return;
     }
     createDownloadLink(content) {
         var jsonString = JSON.stringify(content);
-        var blob = new Blob([jsonString], {type: "application/json"});
+        var blob = new Blob([jsonString], { type: "application/json" });
         var url = URL.createObjectURL(blob);
-        this.link =  this.c.querySelector("#_Link-BackUp");
-        this.c.querySelector("._dl-continer input").value= this.name;
+        this.link = this.c.querySelector("#_Link-BackUp");
+        this.c.querySelector("._dl-continer input").value = this.name;
         this.link.href = url;
         this.link.download = this.name;
     }
-    editeFileName(e)
-    {
+    editeFileName(e) {
         this.name = e.target.value;
         this.link.download = this.name;
-        return; 
+        return;
     }
 }
-var wordList = ["print","dir"];
-function addAutoCompilit(editor) 
-{
+var wordList = ["print", "dir"];
+function addAutoCompilit(editor) {
     var staticWordCompleter = {
         getCompletions: function (editor, session, pos, prefix, callback) {
-          // فراخوانی تابع callback با لیست کلمات کلیدی
-          callback (null, wordList.map (function (word) {
-            return {
-              caption: word,
-              value: word,
-              meta: "keyword"
-            };
-          }));
+            // فراخوانی تابع callback با لیست کلمات کلیدی
+            callback(null, wordList.map(function (word) {
+                return {
+                    caption: word,
+                    value: word,
+                    meta: "keyword"
+                };
+            }));
         }
-      };
-      
-      // اضافه کردن completer به ادیتور
-      editor.completers.push (staticWordCompleter);
-      
-      // فعال کردن autocompit
-      editor.setOptions ({
-        enableBasicAutocompletion: true
-      });
+    };
 
-      // اضافه کردن یک دستور سفارشی
-editor.commands.addCommand ({
-    name: "dotCommand",
-    bindKey: { win: ".", mac: "." },
-    exec: function () {
-      // دریافت موقعیت فعلی مکان نما
-      var pos = editor.selection.getCursor ();
-      // دریافت جلسه فعلی
-      var session = editor.session;
-      // دریافت خط فعلی
-      var curLine = (session.getDocument ().getLine (pos.row)).trim ();
-      // دریافت توکن های فعلی
-      var curTokens = curLine.slice (0, pos.column).split (/\s+/);
-      // دریافت دستور فعلی
-      var curCmd = curTokens [0];
-      if (!curCmd) return;
-      // دریافت آخرین توکن
-      var lastToken = curTokens [curTokens.length - 1];
-      
-      // وارد کردن نقطه
-      editor.insert (".");
-      
-      // بررسی آخرین توکن
-      if (lastToken === "document") 
-      {
-        // تغییر لیست کلمات کلیدی برای شئ foo
-        wordList = dir(document);
-      }
-      if (lastToken === "window") 
-      {
-        // تغییر لیست کلمات کلیدی برای شئ foo
-        wordList = dir(window);
-      }
-    //   else {
-    //     // بازگشت به لیست پیش فرض کلمات کلیدی
-    //     wordList = ["hello", "world", "foo", "bar"];
-    //   }
-    }
-  });
-  
-    
+    // اضافه کردن completer به ادیتور
+    editor.completers.push(staticWordCompleter);
+
+    // فعال کردن autocompit
+    editor.setOptions({
+        enableBasicAutocompletion: true
+    });
+
+    // اضافه کردن یک دستور سفارشی
+    editor.commands.addCommand({
+        name: "dotCommand",
+        bindKey: { win: ".", mac: "." },
+        exec: function () {
+            // دریافت موقعیت فعلی مکان نما
+            var pos = editor.selection.getCursor();
+            // دریافت جلسه فعلی
+            var session = editor.session;
+            // دریافت خط فعلی
+            var curLine = (session.getDocument().getLine(pos.row)).trim();
+            // دریافت توکن های فعلی
+            var curTokens = curLine.slice(0, pos.column).split(/\s+/);
+            // دریافت دستور فعلی
+            var curCmd = curTokens[0];
+            if (!curCmd) return;
+            // دریافت آخرین توکن
+            var lastToken = curTokens[curTokens.length - 1];
+
+            // وارد کردن نقطه
+            editor.insert(".");
+
+            // بررسی آخرین توکن
+            if (lastToken === "document") {
+                // تغییر لیست کلمات کلیدی برای شئ foo
+                wordList = dir(document);
+            }
+            if (lastToken === "window") {
+                // تغییر لیست کلمات کلیدی برای شئ foo
+                wordList = dir(window);
+            }
+            //   else {
+            //     // بازگشت به لیست پیش فرض کلمات کلیدی
+            //     wordList = ["hello", "world", "foo", "bar"];
+            //   }
+        }
+    });
+
+
 }
-class getFile
-{
-    
+class getFile {
+
     //__init__
-    constructor(name=null,path=null) 
-    {
+    constructor(name = null, path = null) {
         this.name = name;
         this.path = path;
         this.file = null;
         this.newFile = null;
         this.elenemt = null;
-        this.onload  = null;
+        this.onload = null;
         // this.newFile = null;
         this.row = select_row;
-        if(name == null && path == null)
-        {
+        if (name == null && path == null) {
             this.openGetFile();
         }
-        return    
+        return
     }
-    
-    openGetFile()
-    {
+
+    openGetFile() {
         let tag =
-        `
+            `
         <div class="input-new-file boXshadow">
             <div class="input-box">
                 <div class="file-input">
@@ -842,159 +780,135 @@ class getFile
         `
         // let parser = new DOMParser();
         // let doc = parser.parseFromString(htmlString, "text/html");
-        this.elenemt =  $.parseHTML(tag)[1];
-        this.elenemt.getElementsByTagName("input")[0].onchange = (event)=>{this.onSelectFile(event);}
-        this.elenemt.getElementsByTagName("button")[0].onclick = ()=>{this.getNewFile()};
+        this.elenemt = $.parseHTML(tag)[1];
+        this.elenemt.getElementsByTagName("input")[0].onchange = (event) => { this.onSelectFile(event); }
+        this.elenemt.getElementsByTagName("button")[0].onclick = () => { this.getNewFile() };
         this.elenemt.getElementsByTagName("button")[1].onclick = this.cancel;
         this.elenemt = document.body.appendChild(this.elenemt);
         this.elenemt.classList.toggle("_AC");
     }
-    onSelectFile(t)
-    {
+    onSelectFile(t) {
         this.file = t.target.files[0];
         this.name = this.file.name;
         this.elenemt.getElementsByTagName("h3")[1].innerHTML = this.name;
         return;
     }
-    cancel()
-    {
+    cancel() {
         this.file = null;
         this.name = null;
         return document.body.removeChild(document.querySelector(".input-new-file"));
     }
-    getNewFile()
-    {
-        if (this.onload) 
-        {
+    getNewFile() {
+        if (this.onload) {
             select_row = this.row;
-            this.onload();  
+            this.onload();
         }
         return document.body.removeChild(document.querySelector(".input-new-file"));
     }
 }
-class _MOVE_ELEMENT
-{
+class _MOVE_ELEMENT {
     //__init__
-    constructor() 
-    {
+    constructor() {
         this.continer = document.querySelector('._html-continer');
         this.button = document.querySelector("._FREE-BUTTON");
         // this.button.style.top = this.continer.offsetHeight -50;
-        this.button.style.top = `${(this.continer.offsetHeight -50)/this.continer.offsetHeight*100}%`;
+        this.button.style.top = `${(this.continer.offsetHeight - 50) / this.continer.offsetHeight * 100}%`;
         // this.button.style.left = this.continer.offsetWidth -50;
-        this.button.style.left = `${(this.continer.offsetWidth -50)/this.continer.offsetWidth*100}%`;
-        this.button.onmousedown = ()=>{this.initReSize()};
-        this.button.addEventListener('touchstart', this.onTouchDown ,{passive: true});
+        this.button.style.left = `${(this.continer.offsetWidth - 50) / this.continer.offsetWidth * 100}%`;
+        this.button.onmousedown = () => { this.initReSize() };
+        this.button.addEventListener('touchstart', this.onTouchDown, { passive: true });
         return;
     }
-    initReSize()
-    {
-        this.continer.onmousemove = (event)=>{this.onMove(event)};
-        this.continer.onmouseup = ()=>{this.onUp()};
-        this.button.onmouseup = ()=>{this.onUp()};
+    initReSize() {
+        this.continer.onmousemove = (event) => { this.onMove(event) };
+        this.continer.onmouseup = () => { this.onUp() };
+        this.button.onmouseup = () => { this.onUp() };
         return;
     }
-    onTouchDown(e)
-    {
+    onTouchDown(e) {
         ;
-        function onTouchMove(e) 
-        { 
+        function onTouchMove(e) {
             e.preventDefault()
             let b = document.querySelector("._FREE-BUTTON");
             let c = document.querySelector('._html-continer');
             e = e.touches[0] || e.changedTouches[0];
-            if(c.offsetHeight-20 > e.clientY)
-            {
-                b.style.top = `${(e.clientY-10)/c.offsetHeight*100}%`;
-                b.style.left = `${(e.clientX-10)/c.offsetWidth*100}%`;
+            if (c.offsetHeight - 20 > e.clientY) {
+                b.style.top = `${(e.clientY - 10) / c.offsetHeight * 100}%`;
+                b.style.left = `${(e.clientX - 10) / c.offsetWidth * 100}%`;
             }
-        return;
+            return;
         }
-        document.addEventListener('touchmove', onTouchMove,{passive:false});
+        document.addEventListener('touchmove', onTouchMove, { passive: false });
 
-        function onTouchEnd()
-        {
-            document.removeEventListener('touchmove', onTouchMove,{passive: false});
-            document.removeEventListener('touchend',onTouchEnd,{passive: true});
+        function onTouchEnd() {
+            document.removeEventListener('touchmove', onTouchMove, { passive: false });
+            document.removeEventListener('touchend', onTouchEnd, { passive: true });
         }
-        document.addEventListener('touchend',onTouchEnd,{passive: true});
+        document.addEventListener('touchend', onTouchEnd, { passive: true });
         return;
     }
-    onUp()
-    {
+    onUp() {
         this.continer.onmousemove = null;
         this.button.onmouseup = null;
         this.continer.onmouseup = null;
         return;
     }
-    onMove(e)
-    {
-        if(this.continer.offsetHeight-20 > e.clientY)
-        {
-            this.button.style.top = `${(e.clientY-10)/this.continer.offsetHeight*100}%`;
-            this.button.style.left = `${(e.clientX-10)/this.continer.offsetWidth*100}%`;
+    onMove(e) {
+        if (this.continer.offsetHeight - 20 > e.clientY) {
+            this.button.style.top = `${(e.clientY - 10) / this.continer.offsetHeight * 100}%`;
+            this.button.style.left = `${(e.clientX - 10) / this.continer.offsetWidth * 100}%`;
         }
         return;
     }
 }
-class _RE_SIZE
-{
+class _RE_SIZE {
     //__init__
-    constructor() 
-    {
+    constructor() {
         this.row = document.querySelector('._html-continer');
         this.button = document.querySelector("._RE-SIZE");
-        this.button.onmousedown = ()=>{this.initReSize()};
-        this.button.addEventListener('touchstart', this.onTouchDown ,{passive: true});
+        this.button.onmousedown = () => { this.initReSize() };
+        this.button.addEventListener('touchstart', this.onTouchDown, { passive: true });
         return;
     }
-    initReSize()
-    {
-        document.onmousemove = (event)=>{this.onMove(event)};
-        document.onmouseup = ()=>{this.onUp()};
-        this.button.onmouseup = ()=>{this.onUp()};
+    initReSize() {
+        document.onmousemove = (event) => { this.onMove(event) };
+        document.onmouseup = () => { this.onUp() };
+        this.button.onmouseup = () => { this.onUp() };
         return;
     }
-    onTouchDown(e)
-    {
+    onTouchDown(e) {
         ;
-        function onTouchMove(e) 
-        { 
+        function onTouchMove(e) {
             e.preventDefault()
             let c = document.querySelector('._html-continer');
             e = e.touches[0] || e.changedTouches[0];
-            if(window.innerHeight-10 < e.clientY){return}
-            else{c.style.height = e.clientY;return;}
+            if (window.innerHeight - 10 < e.clientY) { return }
+            else { c.style.height = e.clientY; return; }
         }
-        document.addEventListener('touchmove', onTouchMove,{passive:false});
+        document.addEventListener('touchmove', onTouchMove, { passive: false });
 
-        function onTouchEnd()
-        {
-            document.removeEventListener('touchmove', onTouchMove,{passive: false});
-            document.removeEventListener('touchend',onTouchEnd,{passive: true});
+        function onTouchEnd() {
+            document.removeEventListener('touchmove', onTouchMove, { passive: false });
+            document.removeEventListener('touchend', onTouchEnd, { passive: true });
         }
-        document.addEventListener('touchend',onTouchEnd,{passive: true});
+        document.addEventListener('touchend', onTouchEnd, { passive: true });
         return;
     }
-    onUp()
-    {
+    onUp() {
         document.onmousemove = null;
         this.button.onmouseup = null;
         document.onmouseup = null;
         return;
     }
-    onMove(e)
-    {
-        if(window.innerHeight-10 < e.clientY){return}
-        else{this.row.style.height = e.clientY;return;}
+    onMove(e) {
+        if (window.innerHeight - 10 < e.clientY) { return }
+        else { this.row.style.height = e.clientY; return; }
     }
 }
 // HTML_CONTINER
-class _HTML_CONTINER
-{
+class _HTML_CONTINER {
     //__init__
-    constructor() 
-    {
+    constructor() {
         let h = `<div class="_html-continer SCR-DIV">
                     <div class="_HCV SCR-DIV">
                         <div class="body"></div>
@@ -1005,21 +919,18 @@ class _HTML_CONTINER
         document.body.insertAdjacentHTML("beforeend", h);
         this.continer = document.querySelector("._html-continer");
         document.body.appendChild(this.continer);
-        document.querySelector("._FREE-BUTTON").ondblclick= ()=>{this.backRow()};
+        document.querySelector("._FREE-BUTTON").ondblclick = () => { this.backRow() };
         // document.querySelector("._FREE-BUTTON").ondblclick= ()=>{this.fullBody()};
         this.html = this.continer.querySelector(".body");
         this.old_html = null;
         new _RE_SIZE()
         new _MOVE_ELEMENT()
     }
-    fullBody()
-    {
+    fullBody() {
         console.log("fullBody")
     }
-    backRow()
-    {
-        if (this.old_html)
-        {
+    backRow() {
+        if (this.old_html) {
             this.old_html.appendChild(this.html.childNodes[0]);
             this.continer.classList.toggle("_AC");
             document.getElementById("_NTB-CTNR").classList.toggle("_htmlFullViweNotebook");
@@ -1028,14 +939,11 @@ class _HTML_CONTINER
         }
         return;
     }
-    addNew(new_e)
-    {
-        if (this.old_html)
-        {
+    addNew(new_e) {
+        if (this.old_html) {
             this.old_html.appendChild(this.html.childNodes[0]);
         }
-        else
-        {
+        else {
             this.continer.classList.toggle('_AC');
             document.getElementById("_NTB-CTNR").classList.toggle("_htmlFullViweNotebook");
             document.querySelector('._NVM').classList.toggle("_htmlFullViweMenu");
@@ -1046,15 +954,12 @@ class _HTML_CONTINER
     }
 }
 // SettingRow
-class _SettingRow
-{
+class _SettingRow {
     //__init__
-    constructor() 
-    {
+    constructor() {
         this.box = document.querySelector("._BXS");
     }
-    creat(e)
-    {
+    creat(e) {
         let c = $.parseHTML(`
                 <div class="_STR">
                 </div>
@@ -1063,39 +968,35 @@ class _SettingRow
         this.box.appendChild(c);
         this.box.classList.toggle("_AC");
         c.classList.toggle("_AC");
-        c.onclick = ()=>{
+        c.onclick = () => {
             this.box.classList.toggle("_AC");
             this.box.innerHTML = "";
         }
-        
-        return 
+
+        return
     }
-    css()
-    {
+    css() {
         this.creat(this.editRow([
-            [1,`<span style="--i:1;--x:1;--y:0;" title="Atuo Run Css" onclick="ATUOrUNcSS()"><ion-icon name="infinite-outline"></ion-icon></span>`],
-            [4,`<span style="--i:4;--x:1;--y:1;" title="Smile Row" onclick="SMILrOW()"><ion-icon name="contract-outline"></ion-icon></span>`],
-            [5,`<span class="_S-L" style="--i:5;--x:-1;--y:-1;" title="cheang language to CSS"><ion-icon name="logo-css3"></ion-icon></span>`],
+            [1, `<span style="--i:1;--x:1;--y:0;" title="Atuo Run Css" onclick="ATUOrUNcSS()"><ion-icon name="infinite-outline"></ion-icon></span>`],
+            [4, `<span style="--i:4;--x:1;--y:1;" title="Smile Row" onclick="SMILrOW()"><ion-icon name="contract-outline"></ion-icon></span>`],
+            [5, `<span class="_S-L" style="--i:5;--x:-1;--y:-1;" title="cheang language to CSS"><ion-icon name="logo-css3"></ion-icon></span>`],
         ]));
-        return ;
+        return;
     }
-    js()
-    {
+    js() {
         this.creat(this.editRow([
-            [2,`<span class="_S-L" style="--i:2;--x:0;--y:-1;" title="cheang language to JavaScript"><ion-icon name="logo-nodejs"></ion-icon></span>`]
+            [2, `<span class="_S-L" style="--i:2;--x:0;--y:-1;" title="cheang language to JavaScript"><ion-icon name="logo-nodejs"></ion-icon></span>`]
         ]));
-        return ;
+        return;
     }
-    html()
-    {
+    html() {
         this.creat(this.editRow([
-            [4,`<span style="--i:4;--x:1;--y:1;" title="OutPut Full Page" onclick="htmlFullViwe()"><ion-icon name="expand-outline"></ion-icon></span>`],
-            [8,`<span class="_S-L" style="--i:8;--x:1;--y:-1;" title="cheang language to HTML 5"><ion-icon name="logo-html5"></ion-icon></span>`],
+            [4, `<span style="--i:4;--x:1;--y:1;" title="OutPut Full Page" onclick="htmlFullViwe()"><ion-icon name="expand-outline"></ion-icon></span>`],
+            [8, `<span class="_S-L" style="--i:8;--x:1;--y:-1;" title="cheang language to HTML 5"><ion-icon name="logo-html5"></ion-icon></span>`],
         ]));
-        return ;
+        return;
     }
-    editRow(row=[['index','item'],['index','item']])
-    {
+    editRow(row = [['index', 'item'], ['index', 'item']]) {
         let rows = [
             `<span style="--i:0;--x:-1;--y:0;" title="Run This Row" onclick="buttonRun()"><ion-icon name="play-outline"></ion-icon></ion-icon></span>`,
             `<span style="--i:1;--x:1;--y:0;" title="Revers Output And Input" onclick="revers_row()"><ion-icon name="git-compare-outline"></ion-icon></span>`,
@@ -1106,7 +1007,7 @@ class _SettingRow
             `<span style="--i:6;--x:0;--y:0;" title="Close Menu"><ion-icon name="apps-outline"></ion-icon></span>`,
             `<span style="--i:7;--x:-1;--y:1;" title="Delet Row" onclick="delet_row()"><ion-icon name="trash-outline"></ion-icon></span>`,
             `<span style="--i:8;--x:1;--y:-1;" title="cheang language to HTML 5"><ion-icon name="logo-html5"></ion-icon></span>`,
-        
+
         ]
         row.forEach((value) => {
             rows[value[0]] = value[1];
@@ -1114,34 +1015,29 @@ class _SettingRow
         return rows.join(' ');
     }
 }
-class _mangers
-{
- constructor()
- {
-    
-    
- }
- load()
- {
-    this.settingRow = new _SettingRow();
-    this.save = new _Save();
-    this.getBackup = new _GET_BACKUP();
-    this.htmlContiner = new _HTML_CONTINER();
- }
+class _mangers {
+    constructor() {
+
+
+    }
+    load() {
+        this.settingRow = new _SettingRow();
+        this.save = new _Save();
+        this.getBackup = new _GET_BACKUP();
+        this.htmlContiner = new _HTML_CONTINER();
+    }
 }
 const _ = new _mangers();
-function onLoad() 
-{
+function onLoad() {
     add_js()
     let navigation = document.querySelector('._NVM');
     let toggle = document.querySelector('._TG');
-    toggle.onclick = function(){
+    toggle.onclick = function () {
         navigation.classList.toggle('_AC');
     }
     _.load()
-    document.querySelector("._BXS").onclick = (event)=>{
-        if(event.target.className.startsWith('_BXS'))
-        {
+    document.querySelector("._BXS").onclick = (event) => {
+        if (event.target.className.startsWith('_BXS')) {
             event.target.innerHTML = "";
             document.querySelector("._BXS").classList.toggle("_AC");
         }
@@ -1149,6 +1045,69 @@ function onLoad()
 
     openDilogTestWidget()
 }
+
+
 function openDilogTestWidget() {
-    
+    var widget = [
+        "cart-profile-org.json",
+        "data-clouds-rain-loading.json",
+        "magnetic-element-v-org.json",
+        "menu-button-rotary.json",
+        "login-v-org.json",
+        "menu-bar-home-chat-like.json",
+        "my-post-item menu-v3.json",
+        "page-scroll-section-org.json",
+        "post-item menu-v1.json",
+    ]
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", `https://mtynet.github.io/java_scripts_editor/my_element/${widget[Math.floor(Math.random() * 9)]}`);
+    xhr.responseType = "json";
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // body به عنوان JSON در xhr.response در دسترس است
+            var data = xhr.response;
+            console.log(data);
+            readJsonFile(data)
+            // ...
+        } else {
+            openDilogTestWidget()
+            // خطا در بارگیری URL
+        }
+    };
+    xhr.send();
+    function readJsonFile(data)
+    {
+        for (let index = 0; index < data.length; index++) {
+            let d = data[index];
+            let t = d.type;
+            let i
+            console.log(data[index])
+            if (t == "js") {
+                i = GetId(add_js());
+                i.e.setValue(d.input);
+                select(i.row);
+                i.e.clearSelection();
+                jsRun() // if check box run code
+                continue;
+            }
+            if (t == "html") {
+                i = GetId(add_html());
+                i.e.setValue(d.input);
+                select(i.row);
+                i.e.clearSelection();
+                htmlRun();
+                htmlFullViwe();
+                continue;
+            }
+            if (t == "css") {
+                i = GetId(add_css());
+                i.e.setValue(d.input);
+                i.e.clearSelection();
+                select(i.row);
+                cssRun();
+                continue;
+            }
+        }
+        return
+    }
 }
