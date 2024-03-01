@@ -1,0 +1,139 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./style.css" type="text/css"></link>
+    <script src="./m.js"></script>
+</head>
+<body onkeydown="checkShiftEnter(event)" onload="onLoad()">
+    
+    <main class="_NTB-A"><!-- notebook_app -->
+        <nav class="_NVM"><!-- navigation -->
+            <ul>
+                <li>
+                    <a>
+                        <span class="icon"><ion-icon name="logo-apple-ar"></ion-icon>
+                        </span>
+                        <span class="title">Brand Name</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="add_js()">
+                        <span class="icon"><ion-icon name="logo-nodejs"></ion-icon></span>
+                        <span class="title">java script row</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="add_html()">
+                        <span class="icon"><ion-icon name="logo-html5"></ion-icon></span>
+                        <span class="title">html row</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="add_css()">
+                        <span class="icon"><ion-icon name="logo-css3"></ion-icon></span>
+                        <span class="title">html row</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="buttonRun()">
+                        <span class="icon"><ion-icon name="play-outline"></ion-icon></span>
+                        <span class="title">run</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="delet_row()">
+                        <span class="icon"><ion-icon name="trash-outline"></ion-icon></span>
+                        <span class="title">delet</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="cheangMode()">
+                        <span class="icon"><ion-icon name="repeat-outline"></ion-icon></span>
+                        <span class="title">cheang mod</span>
+                    </a>
+                </li>
+
+                
+                <li>
+                    <a onclick="moveRow('up')">
+                        <span class="icon"><ion-icon name="arrow-up-circle-outline"></ion-icon></span>
+                        <span class="title">move up</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="moveRow('down')">
+                        <span class="icon"><ion-icon name="arrow-down-circle-outline"></ion-icon></span>
+                        <span class="title">move down</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="revers_row()">
+                        <span class="icon"><ion-icon name="swap-vertical-outline"></ion-icon></span>
+                        <span class="title">rivers</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a onclick="_.getBackup.creat()">
+                        <span class="icon"><ion-icon name="cloud-upload-outline"></ion-icon></span>
+                        <span class="title">upload</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="_.save.saved()">
+                        <span class="icon"><ion-icon name="cloud-download-outline"></ion-icon></span>
+                        <span class="title">download</span>
+                    </a>
+                    
+                </li>
+                <li>
+                    <a>
+                        <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
+                        <span class="title">setting</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span class="icon"><ion-icon name="help-outline"></ion-icon></span>
+                        <span class="title">help</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="addRowSide('up')">
+                        <span class="icon">+ Up</span>
+                        <span class="title">add up</span>
+                    </a>
+                </li>
+                <li>
+                    <a onclick="addRowSide('down')">
+                        <span class="icon">+ Down</span>
+                        <span class="title">add down</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="_TG"></div>
+        </nav>
+        <div id="_NTB" tabindex="-1"><!-- notebook -->
+            <div class="_CTNR" id="_NTB-CTNR"><!-- container , notebook-container -->
+            </div>
+        </div>
+        <div class="_BXS">
+        </div>
+    </main>
+
+
+    <!-- icon -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- code editor -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.22.0/ace.js"></script> -->
+    <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="ace-builds/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+    <!-- <script src="ace-builds/src-noconflict/ext-inline_autocomplete.min.js" type="text/javascript" charset="utf-8"></script> -->
+    <script src="ace-builds/src-min-noconflict/ext-inline_autocomplete.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
