@@ -1146,4 +1146,9 @@ function onLoad()
             document.querySelector("._BXS").classList.toggle("_AC");
         }
     }
+
+    openDilogTestWidget()
+}
+function openDilogTestWidget() {
+    
 }
