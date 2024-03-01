@@ -1,0 +1,67 @@
+body.viewsMode .ReSize {
+    display: block;
+}
+
+.ReSize {
+    display: none;
+    background: gray;
+    opacity: 0.5;
+    z-index: 500;
+    align-items: center;
+}
+@keyframes resize {
+    100% {
+        opacity: 1;
+        background: #1c8eff;
+    }
+}
+
+.BtnResize {
+    position: absolute;
+    background: transparent;
+    /* cursor: e-resize;
+    cursor: n-resize; */
+    z-index: 500;
+}
+
+.BtnResize.select {
+    opacity: 1;
+    background: #1c8eff;
+}
+
+.BtnResize:hover {
+    animation: resize 0s 0.5s 1;
+    animation-fill-mode: forwards;
+}
+
+.BtnResize.Horizontal {
+    cursor: n-resize;
+    min-width: 100%;
+    min-height: 5px;
+}
+
+.BtnResize.vertical {
+    cursor: e-resize;
+    min-width: 5px;
+    min-height: 100%;
+}
+
+.BtnResize.full-btn {
+    min-height: 100% !important;
+    min-width: 100% !important;
+}
+* > .BtnResize.full-btn {
+    position: relative !important;
+    
+}
+.BtnResize.left,
+.BtnResize.top {
+    left: 0;
+    top: 0;
+}
+
+.BtnResize.rigth,
+.BtnResize.bottom {
+    bottom: 0;
+    right: 0;
+}

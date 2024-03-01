@@ -1,0 +1,169 @@
+.Views div.console-logs
+{
+    position: absolute;
+    height: 100%;
+    width: 90%;
+    top: 0;
+    right: 0;
+    background: #282828 !important;
+    z-index: 2;
+    /* padding-left: 5px; */
+    border-left: 1px solid #000;
+    color: #fff;
+
+    /*  */
+    display: none;
+}
+.Views div.console-logs.active
+{
+    display: block;
+}
+.Views div.console-logs *
+{
+    user-select: text;
+}
+/* .Views div.console-logs > *
+{ */
+    /* padding: 10px; */
+    /* border: 1px solid #000; */
+/* } */
+.resize-console
+{
+    position: absolute;
+    height: 100%;
+    width: 5px;
+    background: transparent;
+    top: 0;
+    left: 0;
+    cursor: ew-resize;
+    z-index: 100;
+}
+
+.body-console
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+
+.history-console 
+{
+    height: fit-content;
+    /* height: 100%; */
+    /* background: #282828; */
+    /* overflow-x: hidden; */
+     /* display: flex; */
+    /*align-items: start;*/
+    /* justify-content: end;
+    flex-direction: column;  */
+    overflow: auto;
+}
+.history-console > div.console-msg
+{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20px auto;
+    grid-template-rows: auto;
+    grid-template-areas: "icon content";
+    gap: 10px;
+    padding: 2px 0px 2px 10px;
+    max-height: 200px;
+    font-size: 1.2em;
+    border-top: 2px solid #ffffff;
+    overflow: auto;
+}
+.history-console > div.console-msg .icon
+{
+    padding-top: 2px;
+    grid-area: icon;
+}
+.history-console > div.console-msg i.icon ion-icon
+{
+    position: sticky;
+    top: 5px;
+}
+.history-console > div.console-msg .content
+{
+    grid-area: content;
+}
+.history-console .error ,
+.history-console .assert
+{
+    border-top: 2px solid #8b0000  !important;
+    background: #660000b9;
+    color: #ff9090;
+}
+.history-console .debug 
+{
+    border-top: 2px solid #8400a9  !important;
+    background: #58007094;
+    color: #efb7ff;
+}
+.history-console .warn 
+{
+    border-top: 2px solid #eeff00 !important;
+    background: #fceb027b;
+    color: #33ff00;
+}
+.history-console .warn i
+{
+    color: #ffb700;
+}
+.history-console .info i ,
+.history-console .log i
+{
+    color: #00b7ff;
+}
+.history-console > div.console-msg.src .content
+{
+    font-size: 1.2em;
+}
+/* input */
+
+.input-console
+{
+    position: sticky;
+    height: fit-content;
+    border-top: #a4a4a4 4px solid;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20px auto;
+    grid-template-rows: auto;
+    grid-template-areas: "icon input";
+    gap: 10px;
+    padding-left: 10px;
+    min-height: 40px;
+    /* height: fit-content; */
+    max-height: 50%;
+    overflow: auto;
+}
+.input-console i.icon
+{
+    grid-area: icon;
+    position: relative;
+    padding-top: 8px;
+    height: 100%;
+    width: 100%;
+    font-size: 1.2em;
+}
+.input-console i.icon ion-icon
+{
+    position: sticky;
+    top: 5px;
+}
+.input-console .input
+{
+    grid-area: input;
+    position: relative;
+    height: 100%;
+    min-height: 40px;
+    width: 100%;
+    font-size: 1.4em;
+    line-height: 34px;
+}
+/* input */

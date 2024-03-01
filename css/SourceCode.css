@@ -1,0 +1,22 @@
+section.code
+{
+    position: relative;
+    min-width: 100%;
+    min-height: 100%;
+    /* background: #00009b; */
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 40px auto;
+    grid-template-areas: "tabs" "view-sources";
+}
+section.code.not-tabs
+{
+    position: relative;
+    min-width: 100%;
+    min-height: 100%;
+    /* background: #00009b; */
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+    grid-template-areas: "view-sources";
+}

@@ -1,0 +1,215 @@
+@font-face 
+{ 
+    font-family: "IntelFont";
+    /* src: url("css/fonts/otf/intelone-mono-font-family-light.otf");  */
+    /* src: url("css/fonts/woff2/intelone-mono-font-family-light.woff2") format("woff2"),  */
+    /* url("css/fonts/woff/intelone-mono-font-family-light.woff") format("woff");  */
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600;900&display=swap');
+*
+{
+    font-family: "IntelFont" ,'Poppins', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+:root
+{
+    --body-color: #000000;
+}
+
+
+:root
+{
+    /* --body-color: #ffffff; */
+    --sidebar-color: #f3fbff;
+    --primary-color: #695cfe;
+    --accent-bg: #261dd6;
+    --primary-color-light: #515151;
+    --toggle-color: #ddd;
+    --text-color: #000000;
+    --link-color: #0077e6;
+    --box-content-color: #bab7b799;
+    --text-content-color: #000000;
+    --accent-color: #1e33ef;
+    
+    --tran-02: all 0.2s ease; 
+    --tran-03: all 0.3s ease; 
+    --tran-04: all 0.4s ease; 
+    --tran-05: all 0.5s ease; 
+}
+body.dark
+{
+    --body-color: #18191a;
+    --sidebar-color: #242526;
+    --primary-color: #3a3b3c;
+    --accent-color: #4f46e5;
+    --primary-color-light: #515151;
+    --toggle-color: #fff;
+    --text-color: #ccc;
+    --link-color: #00dbe6;
+    --box-content-color: #9d9c9e29;
+    --text-content-color: #ccc;
+}
+
+
+body
+{
+    min-height: 100vh;
+    background: var(--body-color);
+    /* overflow: hidden; */
+}
+.container
+{
+    position: relative;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 40px auto;
+    grid-template-areas:'header' 'SourceCode';
+    /* gap: 10px; */
+}
+body.viewsMode .container
+{
+    grid-template-columns: 100%;
+    grid-template-rows: 40px auto 10px auto;
+    grid-template-areas:
+    'header'
+    'Views'
+    'ReSize'
+    'SourceCode';
+}
+body.viewsMode.vertical .container
+{
+    grid-template-columns: auto 10px auto;
+    grid-template-rows: 40px auto;
+    grid-template-areas:
+    'header header header'
+    'SourceCode ReSize Views';
+}
+/* set revers directions */
+body.viewsMode.direction .container
+{
+    grid-template-columns: 100%;
+    grid-template-rows: 40px auto 10px auto;
+    grid-template-areas:
+    'header'
+    'SourceCode'
+    'ReSize'
+    'Views';
+}
+body.viewsMode.vertical.direction .container
+{
+    grid-template-columns: auto 10px auto;
+    grid-template-rows: 40px auto;
+    grid-template-areas:
+    'header header header'
+    'Views ReSize SourceCode';
+}
+/* set revers directions */
+/* header */
+header.main
+{
+    z-index: 99999;
+    grid-area: header;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    background: var(--sidebar-color);
+    /* overflow-y: hidden; */
+    /* overflow-x: auto; */
+    overflow: hidden;
+}
+/* header.main:has(.optionBtn.active) .header
+{
+    display: none;
+} */
+
+/* header */
+/* .container > *
+{
+    color: #fff;
+    height: 100%;
+    padding: 5px;
+    border: #fff 1px solid;
+} */
+/* Views */
+body.viewsMode .Views
+{
+    display: grid;
+}
+.Views
+{
+    position: relative;
+    display: none;
+    grid-area: Views;
+    overflow: hidden;
+}
+
+/* Views */
+/* SourceCode */
+.SourceCode
+{
+    position: relative;
+    grid-area: SourceCode;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-template-areas:
+    'main';
+    margin: 0;
+
+}
+/* .SourceCode > *
+{
+    border: #fff solid 2px;
+    padding: 10px;
+} */
+    /* main  */
+    .SourceCode main
+    {
+        grid-area: main;
+        position: relative;
+        z-index: 5;
+        overflow-y: auto;
+    }
+    /* main  */
+/* SourceCode */
+/* ReSize */
+.ReSize
+{
+    grid-area: ReSize;
+}
+/* ReSize */
+/* scrollbar */
+.scrllbar::-webkit-scrollbar
+{
+    width: 0px;
+    height: 0px;
+    cursor:all-scroll;
+}
+*:hover.scrllbar::-webkit-scrollbar
+{
+    width: 5px;
+    height: 5px;
+}
+.scrllbar::-webkit-scrollbar-thumb
+{
+    background: transparent;
+    transition: 0.5s;
+}
+*:hover.scrllbar::-webkit-scrollbar-thumb
+{
+    border-radius: 5px;
+    background: #393838a9;
+}
+.scrllbar::-webkit-scrollbar-thumb:hover {background: #565555f7;}
+.scrllbar::-webkit-scrollbar-track-piece {background: #0000008e;}
+.scrllbar::-webkit-scrollbar-corner {background: #ffffff16;}
+/* scrollbar */
+

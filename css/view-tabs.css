@@ -1,0 +1,108 @@
+div#Views-tabs
+{
+    position: relative;
+    grid-area: tabs;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: hidden;
+    overflow-x: auto;
+    background: #262626;
+    gap: 2px;
+}
+#Views-tabs > div.console-btn
+{
+    position:sticky;
+    top: 0;
+    left: 0;
+    min-height: 40px;
+    min-width: 40px;
+    z-index: 5;
+    margin-right: 5px;
+    overflow: hidden;
+    border-radius: 6px;
+}
+#opon-console
+{
+    border: none;
+    background: #191919;
+    color: #fff;
+    min-height: 40px;
+    min-width: 40px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+body:has(#view-folder.active) #opon-console:hover,
+#opon-console:hover
+{
+    background: #5c5c5c;
+    color: #049af7;
+}
+body:has(#view-folder.active) #opon-console
+{
+    background: #191919;
+    color: #04e7f7;
+}
+
+#Views-tabs div.tab
+{
+    min-width: 180px;
+    width: 300px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 10px 5px;
+    justify-content: space-between;
+    background: #1b1b1b;
+    border-bottom: 2px solid #262626;
+    cursor: pointer;
+    color: #fff;
+    float: left;
+}
+#Views-tabs div.tab.active
+{
+    border-top: #04e7f7 2px solid;
+    border-bottom: none;
+    background: #000000;
+}
+#Views-tabs div.tab i
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div.tab i ion-icon
+{
+    font-size: 1.2em;
+}
+i.tab-js ion-icon {color: #deff04;}
+i.tab-html ion-icon {color: #ffab04;}
+i.tab-css ion-icon {color: #04e7f7;}
+i.tab-mty ion-icon {color: #00ffcc;}
+#Views-tabs div.tab h3
+{
+    color: aliceblue;
+    overflow: hidden;
+}
+#Views-tabs div.tab button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    color: aliceblue;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2em;
+    opacity: 0;
+}
+#Views-tabs div.tab.active button,
+#Views-tabs div:hover.tab button
+{
+    opacity: 1;
+}
+#Views-tabs div.tab button:hover
+{
+    background: #71717191;
+}

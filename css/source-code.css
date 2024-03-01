@@ -1,0 +1,52 @@
+#source-code
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#source-code > div.input-code
+{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* margin: 10px; */
+    overflow: auto !important;
+}
+#source-code > div.input-code.active
+{
+    display: block !important;
+}
+div.input-code::-webkit-scrollbar
+{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    /* border: 1px solid #fff; */
+    background: none;
+    cursor:all-scroll;
+}
+div.input-code::-webkit-scrollbar-thumb {background: #ffffff16;}
+div.input-code:hover::-webkit-scrollbar-thumb {background: #ffffff4a;}
+div.input-code::-webkit-scrollbar-corner {background: #ffffff16;}
+div.input-code::-webkit-scrollbar-track-piece {background: #ffffff16;}
+
+.ace_editor, .ace_editor * 
+{ 
+    font-family: 
+    "IntelFont" ,
+    'Poppins',
+    "Monaco", 
+    "Menlo", 
+    "Ubuntu Mono", 
+    "Droid Sans Mono", 
+    "Consolas", 
+    monospace !important; 
+}
+div.input-code > div.input 
+{
+    font-size: 1.4em;
+    line-height: 1.5em;
+    width: inherit !important;
+}

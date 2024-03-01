@@ -1,0 +1,26 @@
+.Views
+{
+    position: relative;
+    min-width: 100%;
+    min-height: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: 40px auto;
+    grid-template-areas: "tabs" "view-body";
+}
+#Views-tabs
+{
+    grid-area: tabs;
+}
+#view-body
+{
+    grid-area: view-body;
+}
+.Views.not-tabs
+{
+    position: relative;
+    min-width: 100%;
+    min-height: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+    grid-template-areas: "view-body";
+}

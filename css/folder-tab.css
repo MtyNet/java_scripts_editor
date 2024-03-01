@@ -1,0 +1,345 @@
+section.code div#tabs
+{
+    position: relative;
+    grid-area: tabs;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: hidden;
+    overflow-x: auto;
+    background: #262626;
+    gap: 2px;
+}
+section.code div.view-sources
+{
+    grid-area: view-sources;
+    position: relative;
+    overflow: auto;
+}
+
+#tabs > div.folder-botton
+{
+    position:sticky;
+    top: 0;
+    left: 0;
+    min-height: 40px;
+    min-width: 40px;
+    z-index: 5;
+    margin-right: 5px;
+    overflow: hidden;
+    border-radius: 6px;
+    
+}
+#opon-folder
+{
+    border: none;
+    background: #191919;
+    color: #fff;
+    min-height: 40px;
+    min-width: 40px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+body:has(#view-folder.active) #opon-folder:hover,
+#opon-folder:hover
+{
+    background: #5c5c5c;
+    color: #049af7;
+}
+body:has(#view-folder.active) #opon-folder
+{
+    background: #191919;
+    color: #04e7f7;
+}
+
+#tabs div.tab
+{
+    min-width: 140px;
+    width: 140px;
+    max-width: 300px;
+    min-height: 40px;
+    display: flex;
+    align-items: center !important;
+    padding: 5px 5px;
+    justify-content: space-between;
+    background: #1b1b1b;
+    border-bottom: 2px solid #262626;
+    cursor: pointer;
+    color: #fff;
+    float: left;
+}
+#tabs div.tab.active
+{
+    border-top: #04e7f7 2px solid;
+    border-bottom: none;
+    background: #000000;
+}
+#tabs div.tab i
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+div.tab i ion-icon
+{
+    font-size: 1.2em;
+}
+i.tab-js ion-icon {color: #deff04;}
+i.tab-html ion-icon {color: #ffab04;}
+i.tab-css ion-icon {color: #04e7f7;}
+i.tab-mty ion-icon {color: #00ffcc;}
+#tabs div.tab h3
+{
+    color: aliceblue;
+    font-weight: 300;
+    font-style: italic;
+    overflow: hidden;
+}
+#tabs div.tab button
+{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    color: aliceblue;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2em;
+    opacity: 0;
+}
+#tabs div.tab button:not(:hover).change
+{
+    width: 19px;
+    position: relative;
+    height: 19px;
+    z-index: 10;
+    padding: 3px;
+    opacity: 1;
+    border-radius: 50%;
+}
+#tabs div.tab button:not(:hover).change::after 
+{
+    background: #e9e9e9;
+    content: '';
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    border-radius: 50%;
+}
+#tabs div.tab.active button,
+#tabs div:hover.tab button
+{
+    opacity: 1;
+}
+#tabs div.tab button:hover
+{
+    background: #71717191;
+}
+
+/* tabs */
+/* view-folder */
+#view-folder 
+{
+    position: absolute;
+    top: 10px;
+    left: -300%;
+    padding: 10px 0 0 10px;
+    min-height: 95%;
+    max-height: 95%;
+    max-width: 0;
+    min-width: 0;
+    background: #0000005c;
+    border: 1px solid #262626;
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    transition: 0.1s;
+    overflow: auto;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 10;
+    
+}
+#view-folder.active
+{
+    max-width: 300px;
+    min-width: 300px;
+    left: 10px;
+}
+/* #newFile */
+.new-file-creat
+{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+/* .new-file-creat::before
+{
+    position: absolute;
+    width: 200%;
+    left: -100%;
+    height: inherit;
+    content: '';
+    z-index: -1;
+    background: #5a5a5a70;
+} */
+.new-file-creat i 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ddd;
+    font-size: 1.2em;
+}
+input.edit-inline-iteme,
+.new-file-creat input
+{
+    padding-left: 5px;
+    border: 1px solid #006caf;
+    outline: none;
+    height: 25px;
+    font-size: 1em;
+    background: #0000005c;
+    color: #ddd;
+    border-radius: 4px;
+}
+/* #newFile */
+.folder-box
+{
+    width: 100%;
+    inset: 5px;
+    color: #fff;
+    position: static;
+    /* border: #04e7f7 2px solid; */
+}
+#view-folder li.folder-item
+{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+#view-folder li.folder-item ,
+#view-folder li.name
+{
+    width: 100%;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 30px;
+    gap: 5px;
+    cursor: pointer;
+}
+#view-folder li.folder-item h4 ,
+#view-folder li.name h3
+{
+    color: #fff;
+    font-weight: 400;
+    text-wrap: nowrap;
+}
+#view-folder li.folder-item i,
+.folder-box li.name i
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+#view-folder  *:not(.folder-box,.folder-items,.options-folder * ):hover::before ,
+#view-folder  *:not(.folder-box,.folder-items ,.options-folder * ).active::before
+{
+    position: absolute;
+    width: 200%;
+    left: -100%;
+    height: inherit;
+    content: '';
+    z-index: -1;
+    background: #5a5a5a70;
+}
+#view-folder  *:not(.folder-box,.folder-items,.options-folder * ).active::before
+{
+    background: #5a5a5ab0;
+}
+.folder-box .folder-items
+{
+    border-left: 1px solid #5a5a5a;
+    padding-left: 7.5px;
+    margin-left: 7.5px;
+}
+.folder-box > .folder-items 
+{
+    display: none;
+}
+.folder-box:has(li.folder-item.active) > li.name i,
+.folder-box.show > li.name i 
+{
+    transform: rotate(90deg);
+}
+.folder-box:has(li.folder-item.active)> .folder-items,
+.folder-box.show > .folder-items 
+{
+    display: block;
+}
+.options-folder
+{
+    position: sticky;
+    top: 0;
+    left: 0;
+    min-height: 40px;
+    min-width: 100%;
+    max-height: 40px;
+    max-width: 100%;
+    background: #1b1b1b;
+    z-index: 10;
+    margin: 0 0 10px 0;
+    border-radius: 8px 0 0 8px;
+    border: 2px solid #262626;
+    border-right: none;
+    overflow: hidden;
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    gap: 1px;
+}
+.options-folder li
+{
+    position: relative;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 40px;
+    width: 40px; 
+    background: #202020;
+    color: #fff;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.options-folder li:hover
+{
+    background: #191919;
+    color: #04e7f7;
+}
+.options-folder li span
+{
+    position: absolute;
+    bottom: -1px;
+    right: 0px;
+    z-index: 1;
+}
+/* view-folder */
+/* sources */
+
+/* section.code >*
+{
+    border: 1px solid #fff;
+} */

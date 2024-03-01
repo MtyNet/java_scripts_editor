@@ -1,0 +1,57 @@
+/* button-moveing */
+#button-moveings
+{
+    position: fixed;
+    min-height: 30px;
+    height: 30px;
+    width: 30px;
+    bottom: 5px;
+    right: 5px;
+    background: #0000001b;
+    backdrop-filter: blur(10px);
+    border: 1px solid #76ffab;
+    border-radius: 50%;
+    z-index: 9999999;
+    margin: 20px;
+    overflow: hidden;
+    padding-top: 4px;
+    opacity: 0.5;
+}
+#button-moveings:hover
+{
+    opacity: 1;
+}
+#button-moveings.active
+{
+    height: fit-content;
+    border-radius: 8px;
+}
+/* button-moveing */
+#button-moveings ul
+{
+    height: 100%;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 2px;
+}
+#button-moveings ul li
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#button-moveings ul li.toggel-move
+{
+    color: #fff;
+    font-size: 1.3em;
+}
+#button-moveings:has(
+    li.folder:empty + li.console:empty
+)
+{
+    display: none;
+}

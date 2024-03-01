@@ -1,0 +1,144 @@
+#notifications-box
+{
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    width: 320px;
+    height: inherit;
+    /* background: #fdd; */
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 99999;
+}
+
+#notifications-box > *
+{
+    position: relative;
+    height: inherit;
+    width: 95%;
+    /* background: #07c0f8; */
+    border-radius: 6px;
+    margin: 5px;
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    box-shadow: #0000005c 5px 5px 10px,#0000005c -5px -5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0.5;
+    transition: 0.3s;
+}
+#notifications-box > *:hover
+{
+    opacity: 1;
+}
+#notifications-box > div > div
+{
+    height: inherit;
+    width: 100%;
+}
+#notifications-box > div > hr
+{
+    width: 100%;
+    height: 1px;
+    border: none;
+    background-color: transparent;
+    background-image: 
+    linear-gradient(90deg, #00000000, #ffffff9c, #00000000);
+}
+.notification-warnig hr
+{
+    background-image: 
+    linear-gradient(90deg, #00000000, #0000009c, #00000000) !important;
+}
+.notification-info
+{
+    background-image: linear-gradient(195deg, #49a3f1 0%, #1A73E8 100%);
+}
+.notification-danger
+{
+    background-image: linear-gradient(195deg, #EF5350 0%, #E53935 100%);
+}
+.notification-warnig
+{
+    background-color: #fff !important;
+}
+.notification-success
+{
+    background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+}
+.notif-header ,
+.notif-header .left
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    gap: 5px;
+    padding-bottom: 2px;
+}
+
+.notif-header i ,
+.notif-header span
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+.notification-warnig .notif-header ,
+.notification-warnig .notif-header .left
+{
+    color: #000000 !important;
+}
+.notification-warnig .notif-header .left i
+{color: #ee2b2b !important;}
+#notifications-box .close:hover
+{
+    /* padding: 2px; */
+    background: #0000004e;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.notif-text
+{
+    word-wrap: break-word;
+    padding: 10px 10px 5px 10px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 300;
+}
+.notification-warnig .notif-text
+{
+    color: #414141 ;
+}
+#notifications-box div[class^="notification"]::before
+{
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
+    background: #0000008f;
+    animation: anime-notif 10s linear 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+#notifications-box div:hover[class^="notification"]::before
+{
+    animation-play-state: paused;
+}
+@keyframes  anime-notif{
+    0%{width: 0%;}
+    100%{width: 100%;}
+}

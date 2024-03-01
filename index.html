@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Online</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/resize.css">
+    <link rel="stylesheet" href="css/SourceCode.css">
+    <link rel="stylesheet" href="css/button-moveing.css">
+    <link rel="stylesheet" href="css/console.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/folder-tab.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/source-code.css">
+    <link rel="stylesheet" href="css/libs/jquery-ui.css">
+    <link rel="stylesheet" href="css/view.css">
+    <link rel="stylesheet" href="css/view-tabs.css">
+    <link rel="stylesheet" href="css/iframes.css">
+    <link rel="stylesheet" href="css/dialogs.css">
+    <link rel="stylesheet" href="css/welcome.css">
+
+
+    <!-- <script src="js/resize.js"></script> -->
+
+    <script src="./js/libs/jquery-v360.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/console.js"></script>
+    <script src="./js/libs/jquery-ui.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+</head>
+
+<body onload="onload()" class="vertical dark"><!--  viewsMode -->
+    <!-- <div class="container" style="grid-template-columns: calc(45.1761% - 5px) 10px calc(54.8239% - 5px);"> -->
+    <div class="container">
+
+        <!-- header -->
+        <header class="main">
+            <nav class="header scrllbar">
+                <header class="brand">
+                    <div class="image-text">
+                        <li class="nav-link"><!--image onclick="Handelr('landing_page')" -->
+                            <a href="#logo"><ion-icon name="logo-slack"></ion-icon></a>
+                        </li>
+                    </div>
+                    <div class="optionBtn">
+                        <i class="icon option"><ion-icon name="construct"></ion-icon></i>
+                        <!-- <i class="icon close"><ion-icon name="close-circle-sharp"></ion-icon></i> -->
+                    </div>
+                    <div class="PkgBtn">
+                        <i class="icon option"><ion-icon name="git-merge"></ion-icon></i>
+                        <!-- <i class="icon close"><ion-icon name="close-circle-sharp"></ion-icon></i> -->
+                    </div>
+                </header>
+
+                <h1 class="bname">Brand Name</h1>
+
+                <!-- options -->
+                <div class="options">
+                    <div><button><i><ion-icon name="save"></ion-icon></i></button></div>
+                    <div><button><i><ion-icon name="add-sharp"></ion-icon></i></button></div>
+                    <div>
+                        <button><i><ion-icon name="cut-sharp"></ion-icon></i></button>
+                        <button><i><ion-icon name="documents-outline"></ion-icon></i></button>
+                        <button><i><ion-icon name="clipboard"></ion-icon></i></button>
+
+                    </div>
+                    <div>
+
+                         <button><i><ion-icon name="arrow-up-sharp"></ion-icon></i></button>
+                        <button><i><ion-icon name="arrow-down-sharp"></ion-icon></i></button>
+
+                    </div>
+                    <div>
+
+                        <button><i><ion-icon name="play-sharp"></ion-icon></i><span>Run</span></button>
+                        <button><i><ion-icon name="stop-sharp"></ion-icon></i></button>
+                        <button><i><ion-icon name="refresh-sharp"></ion-icon></i></button>
+                        <button><i><ion-icon name="play-forward-sharp"></ion-icon></i></button>
+
+                    </div>
+
+                    <select id="cell_type">
+                        <option value="code">javascript</option>
+                        <option value="markdown">HTML</option>
+                        <option value="raw">Css</option>
+                        <option value="multiselect" disabled="disabled" style="display: none;">-</option>
+                    </select>
+
+                    <div><button><i><ion-icon name="alert-sharp"></ion-icon></i></button></div>
+                </div>
+                <!-- options -->
+
+
+                <div class="button-mode">
+                    <li class="mode-view">
+                        <div class="mode">
+                            <i class="icon show"><ion-icon name="eye-sharp"></ion-icon></i>
+                            <i class="icon hidden"><ion-icon name="eye-off-sharp"></ion-icon></i>
+                        </div>
+                    </li>
+                    <li class="mode">
+                        <div class="moon-sun">
+                            <i class="icon moon"><ion-icon name="moon-sharp"></ion-icon></i>
+                            <i class="icon sun"><ion-icon name="sunny-sharp"></ion-icon></i>
+                        </div>
+                    </li>
+                    <li class="btmMenu">
+                        <i class="icon setting"><ion-icon name="settings-sharp"></ion-icon></i>
+                        <i class="icon close"><ion-icon name="close-circle-sharp"></ion-icon></i>
+                    </li>
+                </div>
+            </nav>
+
+        </header>
+        <!-- header -->
+
+        <!-- setting menu -->
+        <nav id="menu" class="scrllbar"><!-- active -->
+            <ul>
+                <div class="group">
+                    <h3>Views Mode</h3>
+                    <div class="row">
+                        <li class="verticalMode">
+                            <span class="icon horizontal"><ion-icon name="phone-portrait-sharp"></ion-icon></span>
+                            <span class="icon vertical"><ion-icon name="phone-landscape-sharp"></ion-icon></span>
+                        </li>
+                        <li class="direction">
+                            <span class="icon"><ion-icon name="sync-outline"></ion-icon></ion-icon></span>
+                        </li>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <h3>Theme</h3>
+                    <div id="theme-editor" class="select-input-ui"><!-- open -->
+                        <div class="select">
+                            <span class="selected"></span>
+                            <div class="caret"></div>
+                        </div>
+                        <ul class="menu-select scrllbar">
+                        </ul>
+                    </div>
+                </div>
+                <div class="group">
+                    <h3>source Tabs</h3>
+                    <div class="row">
+                        <li class="source-tabs active">
+                            <span class="icon horizontal"><ion-icon name="browsers-outline"></ion-icon></span>
+                            <!-- <span class="icon vertical"><ion-icon name="tablet-landscape-outline"></ion-icon></span> -->
+                        </li>
+                    </div>
+                </div>
+                <div class="group">
+                    <h3>Views Tabs</h3>
+                    <div class="row">
+                        <li class="views-tabs active">
+                            <span class="icon horizontal"><ion-icon name="browsers-outline"></ion-icon></span>
+                            <!-- <span class="icon vertical"><ion-icon name="tablet-landscape-outline"></ion-icon></span> -->
+                        </li>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <h3>Views Mode</h3>
+                    <div class="row">
+                        <li func="addCss">
+                            <span class="icon"><ion-icon name="logo-css3"></ion-icon></span>
+                        </li>
+                        <li func="buttonRun">
+                            <span class="icon"><ion-icon name="play-outline"></ion-icon></span>
+                        </li>
+                        <li func="deletRow">
+                            <span class="icon"><ion-icon name="trash-outline"></ion-icon></span>
+                        </li>
+                        <li func="deletRow">
+                            <span class="icon"><ion-icon name="trash-outline"></ion-icon></span>
+                        </li>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <h3>Views Mode</h3>
+                    <div class="row">
+                        <li func="addCss">
+                            <span class="icon"><ion-icon name="logo-css3"></ion-icon></span>
+                        </li>
+                        <li func="buttonRun">
+                            <span class="icon"><ion-icon name="play-outline"></ion-icon></span>
+                        </li>
+                    </div>
+                </div>
+
+            </ul>
+        </nav>
+        <!-- setting menu -->
+
+        <div class="Views">
+            <!-- tabs -->
+            <div id="Views-tabs" class="scrllbar">
+                <div class="console-btn">
+                    <button id="opon-console"><i><ion-icon name="terminal"></ion-icon></i></button>
+                </div>
+                <!-- <div file-name="file-1" class="tab">
+                    <i class="tab-js"><ion-icon name="logo-nodejs"></ion-icon></i>
+                    <h3>code.js</h3>
+                    <button type="button"><ion-icon name="close-sharp"></ion-icon></button>
+                </div> -->
+
+            </div>
+            <!-- tabs -->
+            <!-- body -->
+            <div id="view-body">
+                <!-- iframes -->
+                <div id="iframe-box"></div>
+                <!-- iframes -->
+                <!-- console -->
+                <div class="console-logs">
+                    <div class="resize-console"></div>
+                    <div class="body-console">
+                        <div class="history-console scrllbar">
+
+                        </div>
+                        <div class="input-console scrllbar">
+                            <i class="icon"><ion-icon name="chevron-forward"></ion-icon></i>
+                            <div id="console-input" class="input scrllbar"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- console -->
+            </div>
+            <!-- body -->
+
+        </div>
+        <div class="ReSize"></div>
+        <div class="SourceCode">
+            <!-- navigation -->
+
+            <!-- <main> -->
+            <section class="code">
+
+                <div id="tabs" class="scrllbar">
+                    <div class="folder-botton">
+                        <button id="opon-folder"><i><ion-icon name="folder"></ion-icon></i></button>
+                    </div>
+                   
+                </div>
+
+                <div class="view-sources">
+
+                    <div id="view-folder" class="scrllbar"><!-- active -->
+
+                        <div class="options-folder">
+                            <li func="newFolder"><span>+</span><ion-icon name="folder"></ion-icon></li>
+                            <li func="newFile"><span>+</span><ion-icon name="document-text"></ion-icon></li>
+                            <li func="copy"><ion-icon name="documents"></ion-icon></li>
+                            <li func="paste"><ion-icon name="clipboard"></ion-icon></li>
+                            <li func="edite"><ion-icon name="pencil"></ion-icon></li>
+                            <li func="delete"><ion-icon name="trash"></ion-icon></li>
+                            <li func="help"><ion-icon name="alert-circle-sharp"></ion-icon></li>
+                        </div>
+
+                    </div>
+
+                    <div id="source-code">
+                        <!-- <div class="input-code active" file-name="javascript.js" path="./folder-1/javascript.js" type="js"><div class="input"></div></div>
+                        <div class="input-code" file-name="index.html" path="./folder-1/index.html" type="html"><div class="input"></div></div>
+                        <div class="input-code" file-name="style.css" path="./folder-1/style.css" type="css"><div class="input"></div></div>
+                        <div class="input-code" file-name="mty.mty" path="./folder-1/mty.mty" type="mty"><div class="input"></div></div>-->
+                    </div>
+
+                </div>
+
+                <!-- <div id="notifications-box">
+                    
+                </div> -->
+
+            </section>
+            <!-- </main> -->
+            <!-- navigation -->
+        </div>
+    </div>
+
+    <div id="button-moveings">
+        <ul>
+            <li class="toggel-move"><ion-icon name="move"></ion-icon></li>
+            <li class="folder"></li>
+            <li class="console"></li>
+        </ul>
+    </div>
+
+
+
+    <!-- icon -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- code editor -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.22.0/ace.js"></script> -->
+    <script src="./js/libs/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/libs/ace-builds/src-noconflict/ext-language_tools.js" type="text/javascript"
+        charset="utf-8"></script>
+    <script src="./js/libs/ace-builds/src-min-noconflict/ext-inline_autocomplete.js" type="text/javascript"
+        charset="utf-8"></script>
+    <!-- <script src="./js/ace-builds/src-noconflict/ext-inline_autocomplete.min.js" type="text/javascript" charset="utf-8"></script> -->
+</body>
+
+</html>
+
+
+
+
