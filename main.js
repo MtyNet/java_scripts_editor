@@ -676,6 +676,93 @@ class _Save {
         this.link.download = this.name;
         return;
     }
+
+    getDemo() {
+
+        var widget = [
+            "cart-profile-org",
+            "data-clouds-rain-loading",
+            "magnetic-element-v-org",
+            "menu-button-rotary",
+            "login-v-org",
+            "menu-bar-home-chat-like",
+            "my-post-item menu-v3",
+            "page-scroll-section-org",
+            "post-item menu-v1",
+        ]
+
+        this.box.classList.toggle("_AC");
+        this.c = $.parseHTML(`
+        <div class="_dl-continer">
+            <h3>Choose one of the demo projects</h3>
+            <div id="_demo-BackUp"></div>
+        </div>
+        `)[1];//_S.editeFileName(this)
+        var buttonsContainer = $(this.c).find("#_demo-BackUp");
+        widget.forEach(function (item) {
+            var button = $(`<a class="widget-button">${item}</a>`);
+            button.on('click', function () {
+                openDilogTestWidget_(item);
+                $("body > main > div._BXS._AC").click();
+            });
+            buttonsContainer.append(button);
+        });
+        this.box.appendChild(this.c);
+    }
+
+    openDilogTestWidget_(demo) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `https://mtynet.github.io/java_scripts_editor/my_element/${demo}.json`);
+        xhr.responseType = "json";
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // body به عنوان JSON در xhr.response در دسترس است
+                var data = xhr.response;
+                console.log(data);
+                readJsonFile(data)
+                // ...
+            } else {
+                openDilogTestWidget()
+                // خطا در بارگیری URL
+            }
+        };
+        xhr.send();
+        function readJsonFile(data) {
+            for (let index = 0; index < data.length; index++) {
+                let d = data[index];
+                let t = d.type;
+                let i
+                console.log(data[index])
+                if (t == "js") {
+                    i = GetId(add_js());
+                    i.e.setValue(d.input);
+                    select(i.row);
+                    i.e.clearSelection();
+                    jsRun() // if check box run code
+                    continue;
+                }
+                if (t == "html") {
+                    i = GetId(add_html());
+                    i.e.setValue(d.input);
+                    select(i.row);
+                    i.e.clearSelection();
+                    htmlRun();
+                    htmlFullViwe();
+                    continue;
+                }
+                if (t == "css") {
+                    i = GetId(add_css());
+                    i.e.setValue(d.input);
+                    i.e.clearSelection();
+                    select(i.row);
+                    cssRun();
+                    continue;
+                }
+            }
+            return
+        }
+    }
 }
 var wordList = ["print", "dir"];
 function addAutoCompilit(editor) {
@@ -1043,11 +1130,11 @@ function onLoad() {
         }
     }
 
-    openDilogTestWidget()
+    _.save.getDemo()
 }
 
 
-function openDilogTestWidget() {
+function openDilogTestWidget_() {
     var widget = [
         "cart-profile-org.json",
         "data-clouds-rain-loading.json",
@@ -1075,8 +1162,7 @@ function openDilogTestWidget() {
         }
     };
     xhr.send();
-    function readJsonFile(data)
-    {
+    function readJsonFile(data) {
         for (let index = 0; index < data.length; index++) {
             let d = data[index];
             let t = d.type;

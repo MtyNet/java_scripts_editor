@@ -1,16 +1,20 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=\, initial-scale=1.0">
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="./style.css" type="text/css"></link>
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    </link>
     <script src="./main.js"></script>
 </head>
+
 <body onkeydown="checkShiftEnter(event)" onload="onLoad()">
-    
+
     <main class="_NTB-A"><!-- notebook_app -->
+
         <nav class="_NVM"><!-- navigation -->
             <ul>
                 <li>
@@ -57,7 +61,7 @@
                     </a>
                 </li>
 
-                
+
                 <li>
                     <a onclick="moveRow('up')">
                         <span class="icon"><ion-icon name="arrow-up-circle-outline"></ion-icon></span>
@@ -88,7 +92,7 @@
                         <span class="icon"><ion-icon name="cloud-download-outline"></ion-icon></span>
                         <span class="title">download</span>
                     </a>
-                    
+
                 </li>
                 <li>
                     <a>
@@ -122,6 +126,62 @@
             </div>
         </div>
         <div class="_BXS">
+            <style>
+                ._dl-continer {
+                    background-color: #1e293b;
+                    /* رنگ پس‌زمینه کادر */
+                    padding: 20px;
+                    border-radius: 8px;
+                    width: 300px;
+                    height: 400px;
+                    /* تنظیم عرض کادر */
+                    margin: 0 auto;
+                    text-align: center;
+                }
+
+                ._dl-continer h3 {
+                    color: #ffffff;
+                    /* رنگ متن تیتر */
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
+
+                #_demo-BackUp {
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: scroll;
+                    gap: 10px;
+                    /* فاصله بین دکمه‌ها */
+                }
+
+                .widget-button {
+                    background-color: #6d28d9;
+                    /* رنگ پس‌زمینه دکمه‌ها */
+                    color: #ffffff;
+                    /* رنگ متن دکمه‌ها */
+                    padding: 10px 15px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    text-align: center;
+                    font-size: 14px;
+                    display: block;
+                    width: 100%;
+                    /* تنظیم عرض دکمه‌ها */
+                    box-sizing: border-box;
+                    transition: background-color 0.3s;
+                }
+
+                .widget-button:hover {
+                    background-color: #4c1d95;
+                    /* رنگ دکمه‌ها در هنگام هاور */
+                }
+
+                #_Link-BackUp h1 {
+                    font-size: 16px;
+                    color: #ffffff;
+                    margin: 20px 0 0;
+                }
+            </style>
         </div>
     </main>
 
@@ -134,6 +194,9 @@
     <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="ace-builds/src-noconflict/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
     <!-- <script src="ace-builds/src-noconflict/ext-inline_autocomplete.min.js" type="text/javascript" charset="utf-8"></script> -->
-    <script src="ace-builds/src-min-noconflict/ext-inline_autocomplete.js" type="text/javascript" charset="utf-8"></script>
+    <script src="ace-builds/src-min-noconflict/ext-inline_autocomplete.js" type="text/javascript"
+        charset="utf-8"></script>
+
 </body>
+
 </html>
